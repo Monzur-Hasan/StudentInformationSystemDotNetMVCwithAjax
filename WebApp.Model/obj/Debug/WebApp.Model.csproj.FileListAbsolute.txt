@@ -1,0 +1,6 @@
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\bin\Debug\WebApp.Model.dll
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\bin\Debug\WebApp.Model.pdb
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\obj\Debug\WebApp.Model.csprojAssemblyReference.cache
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\obj\Debug\WebApp.Model.csproj.CoreCompileInputs.cache
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\obj\Debug\WebApp.Model.dll
+D:\Dot Net Videos\01 Practise\WebApp\WebApp.Model\obj\Debug\WebApp.Model.pdb

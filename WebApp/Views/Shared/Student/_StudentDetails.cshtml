@@ -1,0 +1,51 @@
+﻿@model WebApp.Models.StudentViewModel
+
+<table>
+    <tr>
+        <td>
+            @Html.ActionLink("Details Informtaion", "StudentsDetails", new { Id = Model.Id }, null)
+        </td>
+    </tr>
+</table>
+<table>
+
+    <tr>
+        <th>Sl</th>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone No</th>
+        <th>Address</th>
+        <th>Age</th>
+        <th>Department</th>
+    </tr>
+    @* cshtml ->variable declared in { int i = 1; }*@
+    @{ int i = 1; }
+
+    @foreach (var student in Model.Students)
+    {
+        <tr>
+            <td>@(i++)</td>
+            <td>@student.RollNo</td>
+            <td>@student.Name</td>
+            <td>@student.Email</td>
+            <td>@student.PhoneNo</td>
+            <td>@student.Address</td>
+            <td>@student.Age</td>
+            <td>@student.Department.Name</td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Student", new { Id = student.Id }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "Student", new { Id = student.Id }, null)
+            </td>
+        </tr>
+
+
+    }
+
+</table>
+
+
+

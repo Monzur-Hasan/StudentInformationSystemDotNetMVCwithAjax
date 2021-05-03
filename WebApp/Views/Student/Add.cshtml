@@ -1,0 +1,215 @@
+﻿@*catch Model data from controller*@
+
+@*@model WebApp.Model.Model.Student*@
+
+@* Controller at a time 1 ta model nite pare. so ViewModel niye kaj korte hbe *@
+
+@model WebApp.Models.StudentViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Add</title>
+        <style>
+            table {
+                font-family: Arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body>*@
+
+@section MyStyle{
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+}
+
+<div>
+    @* form-> by default get, value deyar por Save dile button e kaj kore na puro table ke form tag er moddhe rakha lagbe *@
+    <form method="post">
+        @* Value deyar por again controller er HttpGet method e jay bt get e gele value nibe na so method = "post" *@
+        <table>
+            <tr>
+                <td>@Html.LabelFor(c => c.RollNo)</td>
+                @* value="@Model.RollNo"-> Show value TextBox in View *@
+                @*<td><input type="text" name="RollNo" value="@Model.RollNo" /></td>*@  @*name-> must be same in Model Class propertyName*@
+                @*<td>@Html.TextBox(name: "RollNo", value: Model.RollNo)</td>*@
+                <td>@Html.TextBoxFor(c => c.RollNo, Model.RollNo)</td>
+
+                <td>@Html.ValidationMessageFor(c => c.RollNo)<label id="rollNoError"></label></td>
+                
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Name)</td>
+
+                <td>@Html.TextBoxFor(c => c.Name, Model.Name)</td>
+
+                <td>@Html.ValidationMessageFor(c => c.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Email)</td>
+                @*<td><input type="text" name="Email" value="@Model.Email" /></td>*@  @*name-> must be same in Model Class propertyName*@
+                <td>@Html.TextBoxFor(c => c.Email, Model.Email)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.PhoneNo)</td>
+
+                <td>@Html.TextBoxFor(c => c.PhoneNo, Model.PhoneNo)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Address)</td>
+                <td>@Html.TextBoxFor(c => c.Address, Model.Address)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Age)</td>
+                <td>@Html.TextBoxFor(c => c.Age, Model.Age)</td>
+                <td></td>
+            </tr>
+            <tr>
+                @*<td>Department</td>*@
+                <td>@Html.LabelFor(c => c.DepartmentId)</td>
+
+                @*<td>@Html.TextBoxFor(c => c.DepartmentId, Model.DepartmentId)</td>*@
+
+                <td>@Html.DropDownListFor(c => c.DepartmentId, Model.DepartmentSelectListItems, "--Select--")</td>
+
+                @* DropDownListFor() SelectListItem chay *@
+
+                <td>@Html.ValidationMessageFor(c => c.DepartmentId)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save" /></td>
+                <td>
+                    @if (ViewBag.Message != null)
+                    {
+                        <h3>
+                            <b>
+                                @ViewBag.Message
+                            </b>
+                        </h3>
+                    }
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!--Send Partial View in _StudentDetails-->
+    @{
+        Html.RenderPartial("~/Views/Shared/Student/_StudentDetails.cshtml", Model);
+    }
+
+    <!--<table>
+        <tr>
+            <th>Sl</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone No</th>
+            <th>Address</th>
+            <th>Age</th>
+            <th>Department</th>
+        </tr>-->
+    @* cshtml ->variable declared in { int i = 1; }*@
+
+    <!--@{ int i = 1; }
+
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@(i++)</td>
+                <td>@student.RollNo</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.PhoneNo</td>
+                <td>@student.Address</td>
+                <td>@student.Age</td>
+                <td>@student.DepartmentId</td>
+            </tr>
+
+        }
+    </table>-->
+
+</div>
+
+@section MyScript{
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#RollNo").focusout(function () {
+
+                var rollNo = $("#RollNo").val();
+
+                var jsonRequestData = { rollNo: rollNo };
+
+                $.ajax({
+                    url: "/student/IsStudentExist",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (isExists) {
+                        //alert("Ajax Requiest Success");
+                        $("#rollNoError").text("");
+                        if (isExists === true) {
+                            $("#rollNoError").text("Roll No Exists");
+                            $("#rollNoError").focus();
+                        }
+
+                    },
+                    error: function () {
+                        alert("Ajax Requiest Error");
+                    }
+                });
+
+
+            });
+        });
+    </script>
+}
+
+@*</body>
+    </html>*@
+
+@* Controller to View-> Weak data binding *@
+@*View to Controller-> Strongly data binding *@
+
+@* 2 types of Html helper -> 1. losely helper---- TextBox or Label or ValidationMessage etc.  just string ney*@
+@*      2. Strongly html helperr---- TextBoxFor or LabelFor or ValidationMessageFor with lamda expression. model ney sathe validation o ney  *@

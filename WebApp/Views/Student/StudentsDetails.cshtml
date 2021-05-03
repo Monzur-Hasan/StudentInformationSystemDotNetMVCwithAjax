@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "StudentsDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>StudentsDetails</h2>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label for="Department" class="control-label col-2">Department</label>
+                    </div>
+
+                    <div class="col-md-6">                        
+                        @Html.DropDownList(name: "Department", selectList: null, optionLabel: "--Select--", htmlAttributes: null)
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-2">
+                        <label for="student" class="control-label col-2">Student</label>
+                    </div>
+
+                    <div class="col-md-6">
+                       
+                        <select id="Student">
+                            <option>--Select--</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="studentPartial"></div>
+    </div>
+</div>
+
+
+@section MyScript{
+    <script>      
+
+        $(document).ready(function () {
+
+            $("#Department").change(function () {
+
+                var departmentId = $("#Department").val();  //select deptId from #Department dropDownlist
+
+                //jsonRequestData = { key:select deptId  value: must be same name controller parameter name };
+                var jsonRequestData = { departmentId: departmentId };
+
+                $.ajax({
+
+                    url: "/Student/GetStudentByDepartmentId",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (students) {  //Controller List received kore. must be same name controller return obj list
+                        //alert("Ajax request Success");
+                        $("#Student").empty();  //initially empty korte hobe , nahole ja select korbo sob thakbe
+                        $("#Student").append('<option>--Select--</option>');
+
+                        $.each(students, function (key, value) {
+                            //alert("Key: " + key + "Value: " + value);
+
+                            //alert("Id: " + value.Id + "Name: " + value.Name);
+
+                            $("#Student").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                        });  //append-> ja select korbo sob thakbe, so age clear korte hobe
+                    },
+                    error: function () {
+                        alert("Ajax request Error");
+                    }
+                });
+
+                //$.ajax({    // $.ajax({key, value pair}); -> as a parameter se json obj ney
+                //    url: "",  //// Request->  url:, type:, data: ei 3 ta jinis diye server kase rqst pathabo
+                //    type: "GET/POST", 
+                //    data: "",   ////pass data
+                //    success: "",   ////Server response success 
+                //    error: ""        ////Server response failure 
+                //});
+
+            });
+
+                //Student Details
+            $("#Student").change(function () {
+
+                var id = $("#Student").val();
+
+                var jsonRequestData = { id: id };
+
+                $.ajax({
+                    url: "/student/GetStudentById",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (studentViewModel) {
+                        //alert("Ajax Requiest Success");
+                        $("#studentPartial").html(studentViewModel);
+                    },
+                    error: function () {
+                        alert("Ajax Requiest Error");
+                    }
+                });
+
+
+            });
+        }); 
+    </script>
+}

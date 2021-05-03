@@ -1,0 +1,103 @@
+﻿@model  WebApp.Models.StudentViewModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section MyStyle{
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+}
+
+<div>
+    <form method="post">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(c => c.Id)</td>
+                <td>@Html.TextBoxFor(c => c.Id, Model.Id)</td>
+                <td>@Html.ValidationMessageFor(c => c.Id)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.RollNo)</td>
+                <td>@Html.TextBoxFor(c => c.RollNo, Model.RollNo)</td>
+                <td>@Html.ValidationMessageFor(c => c.RollNo)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Name)</td>
+                <td>@Html.TextBoxFor(c => c.Name, Model.Name)</td>
+                <td>@Html.ValidationMessageFor(c => c.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.PhoneNo)</td>
+                <td>@Html.TextBoxFor(c => c.PhoneNo, Model.PhoneNo)</td>
+                <td>@Html.ValidationMessageFor(c => c.PhoneNo)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Email)</td>
+                <td>@Html.TextBoxFor(c => c.Email, Model.Email)</td>
+                <td>@Html.ValidationMessageFor(c => c.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Address)</td>
+                <td>@Html.TextBoxFor(c => c.Address, Model.Address)</td>
+                <td>@Html.ValidationMessageFor(c => c.Address)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Age)</td>
+                <td>@Html.TextBoxFor(c => c.Age, Model.Age)</td>
+                <td>@Html.ValidationMessageFor(c => c.Age)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.DepartmentId)</td>
+                <td>@Html.DropDownListFor(c => c.DepartmentId, Model.DepartmentSelectListItems, "--Select--")</td>
+                <td>@Html.ValidationMessageFor(c => c.DepartmentId)</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" , value="Delete" /></td>
+
+                <td>
+                    @if (ViewBag.Message != null)
+                    {
+                        <h3>
+                            <b>
+                                @ViewBag.Message
+                            </b>
+                        </h3>
+                    }
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+@{
+    Html.RenderPartial("~/Views/Shared/Student/_StudentDetails.cshtml");
+}
+
+
+@section MyScript{
+
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+

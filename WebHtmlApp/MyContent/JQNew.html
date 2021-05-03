@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        /*css*/
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="row">Simple Addition</div>
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <p>First Number</p>
+                        <input type="text", id="firstNumber" />
+                    </div>
+
+                    <div class="col-sm-4">
+                       <p>Second Number</p>
+                        <input type="text", id="secondNumber"/>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <p>Result</p>
+                        <input type="text", id="result"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-5">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+
+    <script>
+    
+        //$(selector).action(handler);
+        $(document).ready(function () {
+
+            var firstNumber = 0;
+            var secondNumber = 0;
+
+            $("#firstNumber").keyup(function () {
+
+                if (!isNullOrEmpty($("#firstNumber").val())) {
+                    firstNumber = parseInt($("#firstNumber").val());
+                }
+
+                if (!isNullOrEmpty($("#secondNumber").val())) {
+                    secondNumber = parseInt($("#secondNumber").val());
+                }
+              
+                $("#result").val(firstNumber + secondNumber);
+            });
+
+            $("#secondNumber").keyup(function () {
+
+                if (!isNullOrEmpty($("#firstNumber"))) {
+                    firstNumber = parseInt($("#firstNumber").val());
+                }
+
+                if (!isNullOrEmpty($("#secondNumber").val())) {
+                    secondNumber = parseInt($("#secondNumber").val());
+                }
+                $("#result").val(firstNumber + secondNumber);
+            });
+
+
+            function isNullOrEmpty(data) {
+                if (data === undefined || data === "" || isNaN(data))
+                {
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+      //JQ dialogue-> Word less to more
+    </script>
+</body>
+</html>
